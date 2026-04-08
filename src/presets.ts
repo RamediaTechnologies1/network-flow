@@ -2,6 +2,38 @@ import type { PresetNetwork } from './types';
 
 export const presetNetworks: PresetNetwork[] = [
   {
+    name: 'General Network',
+    description: '8 vertices, cross-connections — requires multiple iterations and backward edges',
+    network: {
+      vertices: [
+        { id: 's', x: 60, y: 250, isSource: true, isSink: false },
+        { id: 'A', x: 200, y: 110, isSource: false, isSink: false },
+        { id: 'B', x: 200, y: 390, isSource: false, isSink: false },
+        { id: 'C', x: 400, y: 110, isSource: false, isSink: false },
+        { id: 'D', x: 400, y: 250, isSource: false, isSink: false },
+        { id: 'E', x: 400, y: 390, isSource: false, isSink: false },
+        { id: 'F', x: 580, y: 250, isSource: false, isSink: false },
+        { id: 't', x: 720, y: 250, isSource: false, isSink: true },
+      ],
+      edges: [
+        { id: 'e1', source: 's', target: 'A', capacity: 12, flow: 0 },
+        { id: 'e2', source: 's', target: 'B', capacity: 14, flow: 0 },
+        { id: 'e3', source: 'A', target: 'C', capacity: 10, flow: 0 },
+        { id: 'e4', source: 'A', target: 'D', capacity: 4, flow: 0 },
+        { id: 'e5', source: 'B', target: 'D', capacity: 7, flow: 0 },
+        { id: 'e6', source: 'B', target: 'E', capacity: 8, flow: 0 },
+        { id: 'e7', source: 'C', target: 'F', capacity: 9, flow: 0 },
+        { id: 'e8', source: 'D', target: 'C', capacity: 3, flow: 0 },
+        { id: 'e9', source: 'D', target: 'F', capacity: 6, flow: 0 },
+        { id: 'e10', source: 'E', target: 'D', capacity: 5, flow: 0 },
+        { id: 'e11', source: 'E', target: 'F', capacity: 4, flow: 0 },
+        { id: 'e12', source: 'F', target: 't', capacity: 20, flow: 0 },
+      ],
+      sourceId: 's',
+      sinkId: 't',
+    },
+  },
+  {
     name: 'Simple Network',
     description: '4 vertices, easy to follow — great first example',
     network: {
