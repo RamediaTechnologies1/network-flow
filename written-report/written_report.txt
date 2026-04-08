@@ -1,0 +1,140 @@
+Ramesh Pimentel
+Optimization Methods
+Network Flow — Ford-Fulkerson & Edmonds-Karp Algorithms
+
+Live Application: https://network-flow-one.vercel.app
+Source Code: https://github.com/RamediaTechnologies1/network-flow
+
+================================================================================
+1. INTRODUCTION
+================================================================================
+
+The Maximum Flow problem is a fundamental optimization problem in graph theory
+and operations research. Given a directed graph (flow network) with a designated
+source vertex s and sink vertex t, where each edge has a non-negative capacity,
+the goal is to find the maximum amount of flow that can be sent from s to t
+while respecting edge capacities and flow conservation at intermediate vertices.
+
+Maximum flow has direct applications in transportation networks, communication
+routing, bipartite matching, project scheduling, and supply chain optimization.
+The Max-Flow Min-Cut Theorem, proven by Ford and Fulkerson (1956), establishes
+that the maximum flow equals the minimum cut capacity — a foundational result
+connecting flow maximization to network vulnerability analysis.
+
+This project implements an interactive, step-by-step visualization of two
+classical maximum flow algorithms: the Ford-Fulkerson method using depth-first
+search and the Edmonds-Karp algorithm using breadth-first search. The tool
+serves as a classroom demonstration that reveals the internal mechanics of
+augmenting path algorithms.
+
+================================================================================
+2. THE ALGORITHMS
+================================================================================
+
+Ford-Fulkerson Method (DFS):
+The Ford-Fulkerson method repeatedly finds augmenting paths from source to sink
+in the residual graph and pushes flow along them. The residual graph contains
+forward edges with remaining capacity (capacity minus current flow) and backward
+edges that allow flow cancellation. In each iteration:
+
+  1. Find an s-t path in the residual graph using DFS.
+  2. Determine the bottleneck: the minimum residual capacity along the path.
+  3. Push flow equal to the bottleneck along the path (increase flow on forward
+     edges, decrease flow on backward edges).
+  4. Update the residual graph.
+  5. Repeat until no augmenting path exists.
+
+The algorithm terminates when no path from s to t exists in the residual graph,
+at which point the current flow is maximum. With integer capacities, the
+algorithm runs in O(E * |f*|) time where |f*| is the maximum flow value.
+
+Edmonds-Karp Algorithm (BFS):
+The Edmonds-Karp algorithm is a specific implementation of Ford-Fulkerson that
+uses BFS to find the shortest augmenting path (fewest edges) in each iteration.
+This seemingly small change provides a much stronger time complexity guarantee:
+O(V * E^2), independent of the flow value. The BFS approach ensures that the
+shortest path distance from s to any vertex in the residual graph never
+decreases between iterations, bounding the total number of augmentations to
+O(V * E).
+
+The Residual Graph:
+Both algorithms rely on the residual graph concept. For each edge (u, v) with
+capacity c and current flow f, the residual graph contains a forward edge (u, v)
+with residual capacity c - f (if c - f > 0) and a backward edge (v, u) with
+residual capacity f (if f > 0). Backward edges are essential because they allow
+the algorithm to "undo" previous flow decisions, which is necessary for finding
+the global optimum.
+
+================================================================================
+3. VISUALIZATION FEATURES
+================================================================================
+
+The application provides a comprehensive environment for exploring both
+algorithms:
+
+Algorithm Selection: Users choose between Ford-Fulkerson (DFS) and Edmonds-Karp
+(BFS) before running. This allows direct comparison of how DFS and BFS select
+different augmenting paths on the same network.
+
+Graph Editor: Users build custom flow networks by placing vertices, drawing
+directed edges, and setting capacities. Source and sink are designated by
+clicking vertices in Source/Sink editor modes. Capacities are editable via a
+slider (1 to 30) when an edge is selected.
+
+Preset Networks: Three preset examples demonstrate different behaviors:
+  - Simple Network: 4 vertices with a straightforward flow structure. Ideal
+    for first-time exploration of the algorithm.
+  - Diamond Network: 6 vertices with multiple parallel paths showing how flow
+    splits and recombines through the network.
+  - Bottleneck Network: 7 vertices where a narrow middle edge (capacity 3)
+    limits the entire flow, clearly demonstrating the min-cut concept.
+
+Random Graph Generator: Generates layered flow networks with 4 to 12 vertices.
+The generator creates a natural left-to-right flow structure with the source on
+the left and sink on the right, with intermediate vertices arranged in layers.
+Every vertex is guaranteed to have at least one incoming and one outgoing edge.
+
+Step-by-Step Execution: Each algorithm iteration is broken into distinct visual
+steps:
+  - Augmenting Path (green): The path found from s to t is highlighted.
+  - Bottleneck (amber): The minimum-capacity edge on the path is marked.
+  - Flow Update (blue): Flow values on all path edges are updated.
+  - Residual Graph (gray dashed): The updated residual graph is shown with
+    forward and backward edges.
+  - Termination (red): When no path exists, the algorithm stops.
+
+Each edge displays its flow/capacity ratio (e.g., "5/10") in a labeled pill.
+Saturated edges (flow equals capacity) are highlighted in red. The total flow
+counter updates with each augmentation.
+
+================================================================================
+4. TECHNICAL IMPLEMENTATION
+================================================================================
+
+The application is built with React 19 and TypeScript using Vite. Tailwind CSS
+v4 provides a clean light theme. Framer Motion handles animations for path
+highlighting and step transitions. The flow network is rendered as an SVG canvas
+with directed edges (arrowheads) and interactive capacity labels.
+
+The algorithm implementation generates a complete trace of immutable state
+snapshots, allowing arbitrary forward and backward navigation through the
+execution. The BFS and DFS path-finding functions operate on an adjacency list
+representation of the residual graph, tracking both forward and backward edges
+with their residual capacities.
+
+The application is deployed on Vercel with automatic builds from the GitHub
+repository.
+
+================================================================================
+5. CONCLUSION
+================================================================================
+
+This visualization makes the Ford-Fulkerson and Edmonds-Karp algorithms
+transparent and accessible. By showing each augmenting path discovery,
+bottleneck identification, flow update, and residual graph modification as
+discrete visual steps, students can develop a concrete understanding of how
+augmenting path algorithms work. The ability to compare DFS-based and BFS-based
+path selection on the same network highlights the practical difference between
+the two approaches. The interactive graph editor and random generator encourage
+experimentation with networks of varying structure and complexity, reinforcing
+understanding of maximum flow, minimum cut, and the relationship between them.
