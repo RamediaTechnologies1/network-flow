@@ -1,0 +1,78 @@
+import type { PresetNetwork } from './types';
+
+export const presetNetworks: PresetNetwork[] = [
+  {
+    name: 'Simple Network',
+    description: '4 vertices, easy to follow — great first example',
+    network: {
+      vertices: [
+        { id: 's', x: 100, y: 250, isSource: true, isSink: false },
+        { id: 'A', x: 320, y: 120, isSource: false, isSink: false },
+        { id: 'B', x: 320, y: 380, isSource: false, isSink: false },
+        { id: 't', x: 560, y: 250, isSource: false, isSink: true },
+      ],
+      edges: [
+        { id: 'e1', source: 's', target: 'A', capacity: 10, flow: 0 },
+        { id: 'e2', source: 's', target: 'B', capacity: 8, flow: 0 },
+        { id: 'e3', source: 'A', target: 'B', capacity: 5, flow: 0 },
+        { id: 'e4', source: 'A', target: 't', capacity: 7, flow: 0 },
+        { id: 'e5', source: 'B', target: 't', capacity: 10, flow: 0 },
+      ],
+      sourceId: 's',
+      sinkId: 't',
+    },
+  },
+  {
+    name: 'Diamond Network',
+    description: '6 vertices with multiple paths — shows how flow splits and recombines',
+    network: {
+      vertices: [
+        { id: 's', x: 80, y: 250, isSource: true, isSink: false },
+        { id: 'A', x: 250, y: 100, isSource: false, isSink: false },
+        { id: 'B', x: 250, y: 400, isSource: false, isSink: false },
+        { id: 'C', x: 450, y: 100, isSource: false, isSink: false },
+        { id: 'D', x: 450, y: 400, isSource: false, isSink: false },
+        { id: 't', x: 620, y: 250, isSource: false, isSink: true },
+      ],
+      edges: [
+        { id: 'e1', source: 's', target: 'A', capacity: 10, flow: 0 },
+        { id: 'e2', source: 's', target: 'B', capacity: 10, flow: 0 },
+        { id: 'e3', source: 'A', target: 'C', capacity: 8, flow: 0 },
+        { id: 'e4', source: 'A', target: 'D', capacity: 4, flow: 0 },
+        { id: 'e5', source: 'B', target: 'C', capacity: 3, flow: 0 },
+        { id: 'e6', source: 'B', target: 'D', capacity: 9, flow: 0 },
+        { id: 'e7', source: 'C', target: 't', capacity: 10, flow: 0 },
+        { id: 'e8', source: 'D', target: 't', capacity: 10, flow: 0 },
+      ],
+      sourceId: 's',
+      sinkId: 't',
+    },
+  },
+  {
+    name: 'Bottleneck Network',
+    description: 'A narrow bottleneck edge limits the entire flow — demonstrates min-cut',
+    network: {
+      vertices: [
+        { id: 's', x: 80, y: 250, isSource: true, isSink: false },
+        { id: 'A', x: 230, y: 130, isSource: false, isSink: false },
+        { id: 'B', x: 230, y: 370, isSource: false, isSink: false },
+        { id: 'M', x: 400, y: 250, isSource: false, isSink: false },
+        { id: 'C', x: 550, y: 130, isSource: false, isSink: false },
+        { id: 'D', x: 550, y: 370, isSource: false, isSink: false },
+        { id: 't', x: 700, y: 250, isSource: false, isSink: true },
+      ],
+      edges: [
+        { id: 'e1', source: 's', target: 'A', capacity: 15, flow: 0 },
+        { id: 'e2', source: 's', target: 'B', capacity: 12, flow: 0 },
+        { id: 'e3', source: 'A', target: 'M', capacity: 10, flow: 0 },
+        { id: 'e4', source: 'B', target: 'M', capacity: 10, flow: 0 },
+        { id: 'e5', source: 'M', target: 'C', capacity: 3, flow: 0 },
+        { id: 'e6', source: 'M', target: 'D', capacity: 3, flow: 0 },
+        { id: 'e7', source: 'C', target: 't', capacity: 15, flow: 0 },
+        { id: 'e8', source: 'D', target: 't', capacity: 12, flow: 0 },
+      ],
+      sourceId: 's',
+      sinkId: 't',
+    },
+  },
+];

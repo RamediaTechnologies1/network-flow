@@ -1,0 +1,70 @@
+@import "tailwindcss";
+
+@theme {
+  --color-canvas: #fafbfc;
+  --color-surface: #ffffff;
+  --color-raised: #f4f5f7;
+  --color-border: #e2e5ea;
+  --color-border-hover: #c8cdd5;
+  --color-muted: #8b95a5;
+  --color-subtle: #6b7688;
+  --color-text: #374151;
+  --color-heading: #111827;
+  --color-ink: #000000;
+
+  --color-flow: #2563eb;
+  --color-flow-light: #dbeafe;
+  --color-flow-mid: #93c5fd;
+
+  --color-path: #059669;
+  --color-path-light: #d1fae5;
+
+  --color-bottleneck: #d97706;
+  --color-bottleneck-light: #fef3c7;
+
+  --color-saturated: #dc2626;
+  --color-saturated-light: #fee2e2;
+
+  --color-source: #7c3aed;
+  --color-source-light: #ede9fe;
+  --color-sink: #ea580c;
+  --color-sink-light: #fff7ed;
+
+  --color-residual: #64748b;
+
+  --font-display: 'Instrument Serif', serif;
+  --font-body: 'DM Sans', sans-serif;
+  --font-mono: 'Fira Code', monospace;
+}
+
+* { scrollbar-width: thin; scrollbar-color: var(--color-border) transparent; }
+*::-webkit-scrollbar { width: 5px; }
+*::-webkit-scrollbar-track { background: transparent; }
+*::-webkit-scrollbar-thumb { background: var(--color-border); border-radius: 10px; }
+
+body {
+  font-family: var(--font-body);
+  color: var(--color-text);
+  background: var(--color-canvas);
+  overflow: hidden;
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+}
+
+#root { width: 100%; height: 100vh; }
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+input[type="number"] { -moz-appearance: textfield; }
+
+input[type="range"] {
+  -webkit-appearance: none; appearance: none;
+  height: 4px; border-radius: 2px;
+  background: var(--color-border); outline: none;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none; width: 14px; height: 14px;
+  border-radius: 50%; background: var(--color-flow);
+  cursor: pointer; border: 2px solid white;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
